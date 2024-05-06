@@ -308,38 +308,29 @@ def create_mlpmodel1(numclasses, img_shape):
     return model
 
 
-class LeNet(nn.Module):#for 28*28 MNIST dataset
-    def __init__(self, output_dim):
-        super(LeNet, self).__init__()
-
-        self.conv1 = nn.Conv2d(1, 6, kernel_size=5)
-        self.bn1 = nn.BatchNorm2d(6)  # Batch normalization
-        self.conv2 = nn.Conv2d(6, 16, kernel_size=5)
-        self.bn2 = nn.BatchNorm2d(16)  # Batch normalization
-        
-        self.fc_1 = nn.Linear(16 * 4 * 4, 120)
-        self.dropout1 = nn.Dropout(0.5)  # Dropout
-        self.fc_2 = nn.Linear(120, 84)
-        self.dropout2 = nn.Dropout(0.5)  # Dropout
-        self.fc_3 = nn.Linear(84, output_dim)
+class LeNet(nn.Module):
+    def _init_(self, num_classes=10):
+        super(LeNet, self)._init_()
+        self.conv1 = nn.Conv2d(3, 16, kernel_size=5, stride=1, padding=2)
+        self.bn1 = nn.BatchNorm2d(16)
+        self.pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
+        self.conv2 = nn.Conv2d(16, 32, kernel_size=5, stride=1, padding=2)
+        self.bn2 = nn.BatchNorm2d(32)
+        self.conv3 = nn.Conv2d(32, 64, kernel_size=5, stride=1, padding=2)
+        self.bn3 = nn.BatchNorm2d(64)
+        self.fc1 = nn.Linear(64 * 4 * 4, 500)
+        self.fc2 = nn.Linear(500, 200)
+        self.fc3 = nn.Linear(200, num_classes)
+        self.dropout = nn.Dropout(0.5)
 
     def forward(self, x):
-        x = F.relu(self.bn1(self.conv1(x)))
-        x = F.max_pool2d(x, kernel_size=2)
-        
-        x = F.relu(self.bn2(self.conv2(x)))
-        x = F.max_pool2d(x, kernel_size=2)
-        
-        x = x.view(x.shape[0], -1)  # Flatten
-        
-        x = F.relu(self.fc_1(x))
-        x = self.dropout1(x)
-        
-        x = F.relu(self.fc_2(x))
-        x = self.dropout2(x)
-        
-        x = self.fc_3(x)
-        
+        x = self.pool(F.relu(self.bn1(self.conv1(x))))
+        x = self.pool(F.relu(self.bn2(self.conv2(x))))
+        x = self.pool(F.relu(self.bn3(self.conv3(x))))
+        x = x.view(-1, 64 * 4 * 4)
+        x = self.dropout(F.relu(self.fc1(x)))
+        x = self.dropout(F.relu(self.fc2(x)))
+        x = self.fc3(x)
         return x
 
 def create_lenet(numclasses, img_shape):
