@@ -1,0 +1,32 @@
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": "True"
+        },
+        {
+            "name": "Python: MyTorchTrainer",
+            "type": "python",
+            "request": "launch",
+            "program": "C:/Users/admin/Desktop/MultiModalClassifier-main/TorchClassifier/myTorchTrainer.py"
+            ,
+            "console": "integratedTerminal",
+            "args": [
+                "--data_name", "MNIST", 
+                "--data_type", "torchvisiondataset",
+                "--data_path", "/Users/admin/Desktop/CMPE-258",
+                "--model_name", "mlpmodel1",
+                "--learningratename", "MultiStepLR",
+                "--optimizer", "AdamW",
+                "--learning-rate", "0.01",
+                "--epochs", "20"
+            ]
+        }
+    ]
+}
