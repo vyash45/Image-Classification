@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MultiModalClassifier
 This is a project repo for multi-modal deep learning classifier with popular models from Tensorflow and Pytorch. The goal of these baseline models is to provide a template to build on and can be a starting point for any new ideas, applications. If you want to learn basics of ML and DL, please refer this repo: https://github.com/lkk688/DeepDataMiningLearning.
 
@@ -117,3 +118,6 @@ Check these links for TensorRT inference for Pytorch models:
 * https://github.com/NVIDIA-AI-IOT/torch2trt
 * https://learnopencv.com/how-to-convert-a-model-from-pytorch-to-tensorrt-and-speed-up-inference/
 * https://developer.nvidia.com/blog/speeding-up-deep-learning-inference-using-tensorrt/
+=======
+# Image-Classification
+>>>>>>> origin/main
